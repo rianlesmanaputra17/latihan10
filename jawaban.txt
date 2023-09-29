@@ -1,0 +1,82 @@
+1.Membuat Database
+CREATE DATABASE myshop;
+
+USE myshop;
+
+2.Membuat Table Di Dalam Database
+CREATE TABLE users (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    password VARCHAR(255)
+);
+
+CREATE TABLE categories (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255)
+);
+
+CREATE TABLE items (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    description VARCHAR(255),
+    price INTEGER,
+    stock INTEGER,
+    category_id INTEGER,
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+3.Memasukkan Data Pada Table
+
+-- Memasukkan data ke tabel users
+    INSERT INTO users (name, email)
+    VALUES
+        ('John Doe', 'john@doe.com'),
+        ('Jane Doe', 'jane@doe.com');
+
+-- Memasukkan data ke tabel categories
+    INSERT INTO categories (name)
+    VALUES
+        ('gadget'),
+        ('cloth'),
+        ('men'),
+        ('women'),
+        ('branded');
+
+-- Memasukkan data ke tabel items
+    INSERT INTO items (name, description, price, stock, category_id)
+    VALUES
+        ('Sumsang b50', 'hape keren dari merek sumsang', 1500000, 10, 1)
+
+
+4.Mengambil Data Dari Database
+
+a.Mengambildatausers
+
+    SELECT id, name, email
+    FROM users;
+
+b.Mengambildataitems
+
+    SELECT *
+    FROM items
+    WHERE price > 1000000;
+
+    SELECT *
+    FROM items
+    WHERE name LIKE '%uniklo%'
+
+
+c.Menampilkandataitemsjoindengankategori
+
+    SELECT items.name, items.description, categories.name
+    FROM items
+    JOIN categories ON items.category_id = categories.id;
+
+
+5.Mengubah Data Dari Data base
+
+-- Mengubah harga item "Sumsang b50" menjadi 2.500.000
+    UPDATE items
+    SET price = 2500000
+    WHERE name = 'Sumsang b50';
